@@ -1,17 +1,12 @@
 import { Link, Stack } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function NotFoundScreen() {
     return (
-        <>
-            <Stack.Screen options={{
-                title: "Oops! This screen doesn't exist."
-            }} 
-            />
-            <View>
-                <Link href='/'>Go to home screen</Link>
-            </View>
-        </>
+        <View style={styles.container}>
+            <Text style={styles.warning}>화면이 존재하지 않습니다😶</Text>
+            <Link href='/'>메인페이지로 돌아가기</Link>
+        </View>
     )
 }
 
@@ -20,5 +15,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    warning: {
+        fontSize: 50,
+        fontWeight: "bold",
+        marginBottom: 20,
     }
 })

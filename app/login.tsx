@@ -3,12 +3,13 @@ import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-nati
 
 const { width:SCREEN_WIDTH } = Dimensions.get('window');
 
-export default function HomeScreen() {
+export default function Login() {
 
     const router = useRouter();
 
-    const toForecast = () => {
-        router.push('/forecast/first')
+    const login = () => {
+        alert('카카오 로그인 성공!');
+        router.push('/login')
     }
 
     return (
@@ -18,17 +19,17 @@ export default function HomeScreen() {
             <Text style={styles.logo}>로고</Text>
             <TouchableOpacity 
                 style={styles.kakaoLogin}
-                onPress={toForecast}
+                onPress={login}
             >
-                <Text>전세사기 예측하기</Text>
+                <Text>카카오톡</Text>
             </TouchableOpacity> 
             <TouchableOpacity 
                 style={styles.googleLogin}
-                onPress={toForecast}
+                onPress={login}
             >
-                <Text>전세사기 리포트</Text>
+                <Text>구글</Text>
             </TouchableOpacity>
-            <Link href="/login">로그인</Link>
+            <Link href="/details">View details</Link>
         </View>
     );
 }
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
         fontSize: 60
     },
     kakaoLogin: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: 'yellow',
         width: SCREEN_WIDTH/1.5,
         height: 50,
         borderRadius: 30,
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     googleLogin: {
-        backgroundColor: 'tomato',
+        backgroundColor: 'white',
         borderWidth: 1,
         width: SCREEN_WIDTH/1.5,
         height: 50,
