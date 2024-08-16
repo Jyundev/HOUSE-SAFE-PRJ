@@ -1,20 +1,27 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AlertIcon from '../assets/images/alert.svg';
 
 const Home = () => {
+  const router = useRouter();
+
+  const handlePress = () => {
+    router.push('/forecast/first'); // Navigate to the correct path
+  };
+
   return (
     <View style={styles.container}>
 
       <View style={styles.alertContainer}>
         <Text style={styles.alertTitle}>내 집의 안전도는?</Text>
-        <AlertIcon style={styles.alertIcon}/>
+        <AlertIcon style={styles.alertIcon} />
         <TouchableOpacity style={styles.checkButton}>
-          <Text style={styles.checkButtonText}>바로 확인하기</Text>
+          <Text style={styles.checkButtonText} onPress={handlePress}>바로 확인하기</Text>
         </TouchableOpacity>
         <Text style={styles.descriptionText}>
-        정보 입력으로 전세 사기 위험을 확인하세요.{'\n'}
-        전세 사기 위험도를 확인해드립니다
+          정보 입력으로 전세 사기 위험을 확인하세요.{'\n'}
+          전세 사기 위험도를 확인해드립니다
         </Text>
       </View>
 

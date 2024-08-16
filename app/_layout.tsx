@@ -8,6 +8,11 @@ const _layout = () => {
     return (
         <Tabs
             tabBar={props => <TabBar {...props} />}
+            screenOptions={({ route }) => ({
+                tabBarStyle: {
+                    display: ['index', 'report', 'tip', 'profile'].includes(route.name) ? 'flex' : 'none',
+                },
+            })}
         >
             <Tabs.Screen
                 name="index"
@@ -29,6 +34,8 @@ const _layout = () => {
                 options={{
                     title: "마이페이지"
                 }} />
+
+                
         </Tabs>
     )
 }
