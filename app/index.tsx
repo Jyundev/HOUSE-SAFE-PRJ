@@ -20,8 +20,8 @@ const Home = () => {
           <Text style={styles.checkButtonText} onPress={handlePress}>바로 확인하기</Text>
         </TouchableOpacity>
         <Text style={styles.descriptionText}>
-          정보 입력으로 전세 사기 위험을 확인하세요.{'\n'}
-          전세 사기 위험도를 확인해드립니다
+        전세 사기 위험을 쉽게 확인하세요.{'\n'}
+        정보를 입력하면 위험도를 평가해드립니다.
         </Text>
       </View>
 
