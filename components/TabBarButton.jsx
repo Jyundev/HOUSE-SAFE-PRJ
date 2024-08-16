@@ -8,6 +8,7 @@ const TabBarButton = (props) => {
 
     const scale = useSharedValue(0);
 
+    
     useEffect(()=>{
         scale.value = withSpring(
             typeof isFocused === 'boolean'? (isFocused? 1: 0): isFocused,
@@ -59,7 +60,7 @@ const TabBarButton = (props) => {
         
         <Animated.Text style={[{ 
             color,
-            fontSize: 11
+            fontSize: 12
         }, animatedTextStyle]}>
             {label}
         </Animated.Text>
