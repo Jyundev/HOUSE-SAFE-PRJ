@@ -12,22 +12,22 @@ const _layout = () => {
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: "Home"
+                    title: "홈"
                 }} />
             <Tabs.Screen
-                name="explore"
+                name="report"
                 options={{
-                    title: "Explore"
+                    title: "리포트"
                 }} />
             <Tabs.Screen
-                name="create"
+                name="tip"
                 options={{
-                    title: "Create"
+                    title: "팁"
                 }} />
             <Tabs.Screen
                 name="profile"
                 options={{
-                    title: "Profile"
+                    title: "마이페이지"
                 }} />
         </Tabs>
     )

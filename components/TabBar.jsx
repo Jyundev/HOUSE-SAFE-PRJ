@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import TabBarButton from './TabBarButton';
+import { Colors } from '../constants/Colors';
 
 const TabBar = ({ state, descriptors, navigation }) => {
 
 
-    const primaryColor = '#0891b2';
-    const greyColor = '#737373';
+
   return (
     <View style={styles.tabbar}>
       {state.routes.map((route, index) => {
@@ -20,8 +20,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
 
         // console.log(route.name)
         
-        if(['_sitemap', '+not-found', 'login', 'forecast/first'].includes(route.name)) return null;
-
+        if (!['report', 'tip', 'profile', 'index'].includes(route.name)) {
+          return null;
+      }
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -51,7 +52,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
             onLongPress={onLongPress}
             isFocused={isFocused}
             routeName={route.name}
-            color={isFocused? primaryColor: greyColor}
+            color={isFocused? Colors.primary.tabIconSelected: Colors.primary.tabIconDefault}
             label={label}
           />
         )
