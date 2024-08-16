@@ -1,9 +1,10 @@
 import { Link, useRouter } from 'expo-router';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const { width:SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-export default function HomeScreen() {
+const Home = () => {
 
     const router = useRouter();
 
@@ -16,13 +17,13 @@ export default function HomeScreen() {
             <Text style={styles.headment}>내 집 계약 전에</Text>
             <Text style={styles.headment}>확인해야 할 모든 정보</Text>
             <Text style={styles.logo}>로고</Text>
-            <TouchableOpacity 
+            <TouchableOpacity
                 style={styles.kakaoLogin}
                 onPress={toForecast}
             >
                 <Text>전세사기 예측하기</Text>
-            </TouchableOpacity> 
-            <TouchableOpacity 
+            </TouchableOpacity>
+            <TouchableOpacity
                 style={styles.googleLogin}
                 onPress={toForecast}
             >
@@ -32,6 +33,8 @@ export default function HomeScreen() {
         </View>
     );
 }
+
+export default Home
 
 const styles = StyleSheet.create({
     container: {
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
     },
     kakaoLogin: {
         backgroundColor: 'lightgrey',
-        width: SCREEN_WIDTH/1.5,
+        width: SCREEN_WIDTH / 1.5,
         height: 50,
         borderRadius: 30,
         justifyContent: 'center',
@@ -58,7 +61,7 @@ const styles = StyleSheet.create({
     googleLogin: {
         backgroundColor: 'tomato',
         borderWidth: 1,
-        width: SCREEN_WIDTH/1.5,
+        width: SCREEN_WIDTH / 1.5,
         height: 50,
         borderRadius: 30,
         justifyContent: 'center',
