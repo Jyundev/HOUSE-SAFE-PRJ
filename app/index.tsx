@@ -1,68 +1,99 @@
-import { Link, useRouter } from 'expo-router';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import AlertIcon from '../assets/images/alert.svg';
 
-const { width:SCREEN_WIDTH } = Dimensions.get('window');
+const Home = () => {
+  const router = useRouter();
 
-export default function HomeScreen() {
+  const handlePress = () => {
+    router.push('/forecast/first'); // Navigate to the correct path
+  };
 
-    const router = useRouter();
+  return (
+    <View style={styles.container}>
 
-    const toForecast = () => {
-        router.push('/forecast/first')
-    }
+      <View style={styles.alertContainer}>
+        <Text style={styles.alertTitle}>내 집의 안전도는?</Text>
+        <AlertIcon style={styles.alertIcon} />
+        <TouchableOpacity style={styles.checkButton}>
+          <Text style={styles.checkButtonText} onPress={handlePress}>바로 확인하기</Text>
+        </TouchableOpacity>
+        <Text style={styles.descriptionText}>
+        전세 사기 위험을 쉽게 확인하세요.{'\n'}
+        정보를 입력하면 위험도를 평가해드립니다.
+        </Text>
+      </View>
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.headment}>내 집 계약 전에</Text>
-            <Text style={styles.headment}>확인해야 할 모든 정보</Text>
-            <Text style={styles.logo}>로고</Text>
-            <TouchableOpacity 
-                style={styles.kakaoLogin}
-                onPress={toForecast}
-            >
-                <Text>전세사기 예측하기</Text>
-            </TouchableOpacity> 
-            <TouchableOpacity 
-                style={styles.googleLogin}
-                onPress={toForecast}
-            >
-                <Text>전세사기 리포트</Text>
-            </TouchableOpacity>
-            <Link href="/login">로그인</Link>
-        </View>
-    );
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>내집 실거래가</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>악성 임대인</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>공인중개사</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>토지대장</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 }
 
+export default Home;
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    headment: {
-        fontSize: 30
-    },
-    logo: {
-        margin: 30,
-        fontSize: 60
-    },
-    kakaoLogin: {
-        backgroundColor: 'lightgrey',
-        width: SCREEN_WIDTH/1.5,
-        height: 50,
-        borderRadius: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20
-    },
-    googleLogin: {
-        backgroundColor: 'tomato',
-        borderWidth: 1,
-        width: SCREEN_WIDTH/1.5,
-        height: 50,
-        borderRadius: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 15
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    marginTop: 20
+  },
+
+  alertContainer: {
+    alignItems: 'center',
+    padding: 20,
+  },
+  alertTitle: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  alertIcon: {
+    marginBottom: 20,
+  },
+  checkButton: {
+    backgroundColor: '#E0E0E0',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  checkButtonText: {
+    fontSize: 16,
+  },
+  descriptionText: {
+    fontSize: 14,
+    color: '#6D6D6D',
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: '#E0E0E0',
+    padding: 20,
+    margin: 10,
+    borderRadius: 10,
+    minWidth: '40%',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+  },
 });

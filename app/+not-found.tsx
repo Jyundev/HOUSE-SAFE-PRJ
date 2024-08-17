@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 export default function NotFoundScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.warning}>화면이 존재하지 않습니다😶</Text>
+            <Text style={styles.warning}>화면이 존재하지 않습니다</Text>
             <Link href='/'>메인페이지로 돌아가기</Link>
         </View>
     )

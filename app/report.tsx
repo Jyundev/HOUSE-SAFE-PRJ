@@ -1,14 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import ColorList from '../components/ColorList'
 
-const index = () => {
+const Explore = () => {
   return (
     <View>
-      <Text>TEST</Text>
-    </View>
+       <ColorList color="#90ee90" />
+       </View>
   )
 }
 
-export default index
+export default Explore
 
 const styles = StyleSheet.create({})
