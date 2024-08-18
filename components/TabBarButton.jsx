@@ -1,22 +1,22 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native'
-import React, { useEffect } from 'react'
-import { icons } from '../assets/icons';
+import React, { useEffect } from 'react';
+import { Pressable, StyleSheet } from 'react-native';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { icons } from '../assets/icons';
 
 const TabBarButton = (props) => {
-    const {isFocused, label, routeName, color} = props;
+    const { isFocused, label, routeName, color } = props;
 
     const scale = useSharedValue(0);
 
-    
-    useEffect(()=>{
-        scale.value = withSpring(
-            typeof isFocused === 'boolean'? (isFocused? 1: 0): isFocused,
-            {duration: 350}
-        );
-    },[scale, isFocused]);
 
-    const animatedIconStyle = useAnimatedStyle(()=>{
+    useEffect(() => {
+        scale.value = withSpring(
+            typeof isFocused === 'boolean' ? (isFocused ? 1 : 0) : isFocused,
+            { duration: 350 }
+        );
+    }, [scale, isFocused]);
+
+    const animatedIconStyle = useAnimatedStyle(() => {
 
         const scaleValue = interpolate(
             scale.value,
@@ -31,11 +31,11 @@ const TabBarButton = (props) => {
 
         return {
             // styles
-            transform: [{scale: scaleValue}],
+            transform: [{ scale: scaleValue }],
             top
         }
     })
-    const animatedTextStyle = useAnimatedStyle(()=>{
+    const animatedTextStyle = useAnimatedStyle(() => {
 
         const opacity = interpolate(
             scale.value,
@@ -48,24 +48,24 @@ const TabBarButton = (props) => {
             opacity
         }
     })
-  return (
-    <Pressable {...props} style={styles.container}>
-        <Animated.View style={[animatedIconStyle]}>
-            {
-                icons[routeName]({
-                    color
-                })
-            }
-        </Animated.View>
-        
-        <Animated.Text style={[{ 
-            color,
-            fontSize: 12
-        }, animatedTextStyle]}>
-            {label}
-        </Animated.Text>
-    </Pressable>
-  )
+    return (
+        <Pressable {...props} style={styles.container}>
+            <Animated.View style={[animatedIconStyle]}>
+                {
+                    icons[routeName]({
+                        color
+                    })
+                }
+            </Animated.View>
+
+            <Animated.Text style={[{
+                color,
+                fontSize: 12
+            }, animatedTextStyle]}>
+                {label}
+            </Animated.Text>
+        </Pressable>
+    )
 }
 
 const styles = StyleSheet.create({

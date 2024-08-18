@@ -1,10 +1,19 @@
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import AlertIcon from '../assets/images/alert.svg';
+import { Colors } from '@/constants/Colors';
+import { Stack, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import AlertIcon from '../../assets/images/alert.svg';
+
+
+function LogoTitle() {
+  return (
+    <Image style={styles.image} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
+  );
+}
 
 const Home = () => {
   const router = useRouter();
+  const [count, setCount] = useState(0);
 
   const handlePress = () => {
     router.push('/forecast/first'); // Navigate to the correct path
@@ -13,6 +22,18 @@ const Home = () => {
   return (
     <View style={styles.container}>
 
+      <Stack.Screen
+        options={{
+          title: 'My home',
+          headerStyle: { backgroundColor: '#f4511e' },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitle: props => <LogoTitle {...props} />,
+          headerRight: () => <Button onPress={() => setCount(c => c + 1)} title="Update count" />,
+        }}
+      />
       <View style={styles.alertContainer}>
         <Text style={styles.alertTitle}>내 집의 안전도는?</Text>
         <AlertIcon style={styles.alertIcon} />
@@ -20,8 +41,8 @@ const Home = () => {
           <Text style={styles.checkButtonText} onPress={handlePress}>바로 확인하기</Text>
         </TouchableOpacity>
         <Text style={styles.descriptionText}>
-        전세 사기 위험을 쉽게 확인하세요.{'\n'}
-        정보를 입력하면 위험도를 평가해드립니다.
+          전세 사기 위험을 쉽게 확인하세요.{'\n'}
+          정보를 입력하면 위험도를 평가해드립니다.
         </Text>
       </View>
 
@@ -65,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   checkButton: {
-    backgroundColor: '#E0E0E0',
+    backgroundColor: Colors.light.background,
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -86,14 +107,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    backgroundColor: '#E0E0E0',
-    padding: 20,
+    backgroundColor: Colors.light.background,
+    width: 100, 
+    height: 100, 
     margin: 10,
     borderRadius: 10,
-    minWidth: '40%',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     fontSize: 16,
+  },
+  image: {
+    width: 50,
+    height: 50,
   },
 });
