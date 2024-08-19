@@ -1,9 +1,13 @@
 import { Colors } from '@/constants/Colors';
 import { Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
 import AlertIcon from '../../assets/images/alert.svg';
 
+const screenWidth = Dimensions.get('window').width;
+const buttonSize = (screenWidth / 3)-20;
+
+console.log(buttonSize)
 
 function LogoTitle() {
   return (
@@ -47,19 +51,24 @@ const Home = () => {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>내집 실거래가</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>악성 임대인</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>공인중개사</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>토지대장</Text>
-        </TouchableOpacity>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>내집 실거래가</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>악성 임대인</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>공인중개사</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>토지대장</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+
     </View>
   );
 }
@@ -69,7 +78,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'white',
     alignItems: 'center',
     marginTop: 20
   },
@@ -97,25 +106,32 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontSize: 14,
-    color: '#6D6D6D',
+    color: Colors.light.text,
     textAlign: 'center',
     marginTop: 10,
   },
   buttonsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10, // 각 행 사이의 간격
   },
   button: {
+    width: buttonSize,
+    height: buttonSize,
+    marginHorizontal: 10, // 행 내에서 버튼 간의 간격
     backgroundColor: Colors.light.background,
-    width: 100, 
-    height: 100, 
-    margin: 10,
-    borderRadius: 10,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center', // 텍스트를 버튼 중앙에 위치시키기 위해 사용
+    borderRadius: 20,
   },
   buttonText: {
+    color: Colors.light.text,
     fontSize: 16,
   },
   image: {
