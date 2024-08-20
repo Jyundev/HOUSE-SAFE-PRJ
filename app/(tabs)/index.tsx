@@ -1,19 +1,15 @@
 import { Colors } from '@/constants/Colors';
-import { Stack, useRouter } from 'expo-router';
+import { Link, Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AlertIcon from '../../assets/images/alert.svg';
 
 const screenWidth = Dimensions.get('window').width;
-const buttonSize = (screenWidth / 3)-20;
+const buttonSize = (screenWidth / 3) - 20;
 
 console.log(buttonSize)
 
-function LogoTitle() {
-  return (
-    <Image style={styles.image} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }} />
-  );
-}
+
 
 const Home = () => {
   const router = useRouter();
@@ -26,18 +22,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
 
-      <Stack.Screen
-        options={{
-          title: 'My home',
-          headerStyle: { backgroundColor: '#f4511e' },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerTitle: props => <LogoTitle {...props} />,
-          headerRight: () => <Button onPress={() => setCount(c => c + 1)} title="Update count" />,
-        }}
-      />
+      <Stack.Screen />
       <View style={styles.alertContainer}>
         <Text style={styles.alertTitle}>내 집의 안전도는?</Text>
         <AlertIcon style={styles.alertIcon} />
@@ -52,20 +37,28 @@ const Home = () => {
 
       <View style={styles.buttonsContainer}>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>내집 실거래가</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>악성 임대인</Text>
-          </TouchableOpacity>
+          <Link href='/search' asChild>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>내집 실거래가</Text>
+            </TouchableOpacity>
+          </Link>
+          <Link href='/search' asChild>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>악성 임대인</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>공인중개사</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>토지대장</Text>
-          </TouchableOpacity>
+          <Link href='/org-code' asChild>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>공인중개사</Text>
+            </TouchableOpacity>
+          </Link>
+          <Link href='/search' asChild>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>토지대장</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
 
