@@ -1,12 +1,14 @@
 import { Colors } from '@/constants/Colors';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
+/* search 참고 : https://www.youtube.com/watch?v=Q4S9M9rJAxk */
+
 const API_ENDPOINT = 'http://api.data.go.kr/openapi/tn_pubr_public_med_office_api';
-const SERVICE_KEY = 'SERVICE_KEY';
+const SERVICE_KEY = '37FLUq/RkLHRLoNJsFNlVuoFnd4IeO1BMZiY8MM+piMYRszFf0Yui/NvCjB8Bw7nD2xHz0VMiUBuqdP02X2S2w=='
 
 // API 응답의 데이터 항목 타입 정의
 interface ApiResponse {
@@ -18,10 +20,13 @@ interface ApiResponse {
             pageNo: string;
         };
     };
-}
 
+}
+/**
+ * 
+ */
 interface MedOfficeItem {
-    medOfficeNm: string;
+    medOfficeNm: string; 
     estblRegNo: string;
     opbizLreaClscSe: string;
     lctnRoadNmAddr: string;
@@ -45,50 +50,30 @@ const buildUrlWithParams = (baseUrl: string, params: Record<string, string>): st
     return `${baseUrl}?${queryString}`;
 };
 
-const Search: React.FC = () => {
-    const [searchQuery, setSearchQuery] = useState<string>('');
+const Search = () => {
+    const [searchQuery, setSearchQuery] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [data, setData] = useState<MedOfficeItem[]>([]);
-    const [pageNo, setPageNo] = useState<number>(1);
-    const [totalCount, setTotalCount] = useState<number>(0);
-    const [isFetchingMore, setIsFetchingMore] = useState<boolean>(false);
-
-    const [province, setProvince] = useState<string>('');
-    const [city, setCity] = useState<string>('');
-    const [town, setTown] = useState<string>('');
-
-    // 예시 데이터
-    const provinces: string[] = ['전라남도', '서울특별시', '경기도'];
-    const cities: Record<string, string[]> = {
-        '전라남도': ['신안군', '목포시'],
-        '서울특별시': ['강남구', '서초구'],
-        '경기도': ['수원시', '용인시']
-    };
-    const towns: Record<string, string[]> = {
-        '신안군': ['압해읍', '비금면'],
-        '강남구': ['역삼동', '삼성동'],
-        '수원시': ['팔달구', '영통구']
-    };
+    const [fullData, setFullData] = useState<MedOfficeItem[]>([]);
+    const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        if (province && city && town) {
-            setIsLoading(true);
-            fetchData(searchQuery, province, city, town, 1);
-        }
-    }, [province, city, town]);
+        setIsLoading(true);
+        fetchData('서전공인중개사무소', '전라남도 신안군 압해읍 압해로 881');
+    }, []);
 
-    const fetchData = async (medOfficeName: string, province: string, city: string, town: string, pageNo: number) => {
+    const fetchData = async (medOfficeName: string, locationAddress: string) => {
         try {
             const params = {
                 type: 'json',
-                MED_OFFICE_NM: '서전공인중개사무소',
-                LCTN_ROAD_NM_ADDR: `전라남도 신안군 압해읍 압해로 881`,
-                serviceKey: SERVICE_KEY,
-                numOfRows: '10',
-                pageNo: pageNo.toString(),
+                MED_OFFICE_NM: medOfficeName,
+                LCTN_ROAD_NM_ADDR: locationAddress,
+                serviceKey: SERVICE_KEY
             };
 
             const url = buildUrlWithParams(API_ENDPOINT, params);
+
+            console.log(url);
 
             const response = await fetch(url);
             if (!response.ok) {
@@ -96,38 +81,41 @@ const Search: React.FC = () => {
             }
 
             const data: ApiResponse = await response.json();
-            const fetchedItems = data.response.body.items;
-            setTotalCount(parseInt(data.response.body.totalCount));
+            console.log(data.response.body.items);
 
-            setData(prevData => (pageNo === 1 ? fetchedItems : [...prevData, ...fetchedItems]));
+            setData(data.response.body.items);
+            setFullData(data.response.body.items);
+
         } catch (error) {
-            console.error(error);
+            setError(error as Error);
+            console.log(error);
         } finally {
             setIsLoading(false);
-            setIsFetchingMore(false);
         }
     };
 
     const handleSearch = (query: string) => {
         setSearchQuery(query);
-        setPageNo(1);
-        if (province && city && town) {
-            fetchData(query, province, city, town, 1);
-        }
+        // const filteredData = fullData.filter(item =>
+        //     item.name.first.toLowerCase().includes(query.toLowerCase()) ||
+        //     item.name.last.toLowerCase().includes(query.toLowerCase()) ||
+        //     item.email.toLowerCase().includes(query.toLowerCase())
+        // );
+        // setData(filteredData);
     };
 
-    const loadMoreData = () => {
-        if (!isFetchingMore && data.length < totalCount) {
-            setIsFetchingMore(true);
-            fetchData(searchQuery, province, city, town, pageNo + 1);
-            setPageNo(prevPageNo => prevPageNo + 1);
-        }
-    };
-
-    if (isLoading && pageNo === 1) {
+    if (isLoading) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size={'large'} color={Colors.primary.tabIconSelected} />
+                <ActivityIndicator size={'large'} color='#5500dc' />
+            </View>
+        );
+    }
+
+    if (error) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Error in fetching data...</Text>
             </View>
         );
     }
@@ -135,51 +123,14 @@ const Search: React.FC = () => {
     return (
         <SafeAreaView style={styles.container}>
             <TextInput
-                placeholder="Search by Office Name"
-                clearButtonMode="always"
+                placeholder='Search'
+                clearButtonMode='always'
                 style={styles.searchInput}
-                autoCapitalize="none"
+                autoCapitalize='none'
                 autoCorrect={false}
                 value={searchQuery}
-                onChangeText={handleSearch}
+                onChangeText={(query) => handleSearch(query)}
             />
-
-            <Picker
-                selectedValue={province}
-                onValueChange={(itemValue: string) => setProvince(itemValue)}
-                style={styles.picker}
-            >
-                <Picker.Item label="Select Province" value="" />
-                {provinces.map((prov) => (
-                    <Picker.Item key={prov} label={prov} value={prov} />
-                ))}
-            </Picker>
-
-            {province && (
-                <Picker
-                    selectedValue={city}
-                    onValueChange={(itemValue: string) => setCity(itemValue)}
-                    style={styles.picker}
-                >
-                    <Picker.Item label="Select City/County" value="" />
-                    {(cities[province] || []).map((city) => (
-                        <Picker.Item key={city} label={city} value={city} />
-                    ))}
-                </Picker>
-            )}
-
-            {city && (
-                <Picker
-                    selectedValue={town}
-                    onValueChange={(itemValue: string) => setTown(itemValue)}
-                    style={styles.picker}
-                >
-                    <Picker.Item label="Select Town/District" value="" />
-                    {(towns[city] || []).map((town) => (
-                        <Picker.Item key={town} label={town} value={town} />
-                    ))}
-                </Picker>
-            )}
 
             <FlatList
                 data={data}
@@ -187,18 +138,15 @@ const Search: React.FC = () => {
                 renderItem={({ item }) => (
                     <View style={styles.itemContainer}>
                         <View>
-                            <Text style={styles.textName}>{item.medOfficeNm} {item.rprsvNm}</Text>
+                            <Text style={styles.textName}>{item.medOfficeNm} {item.lctnRoadNmAddr}</Text>
                             <Text style={styles.textEmail}>{item.telno}</Text>
                         </View>
                     </View>
                 )}
-                onEndReached={loadMoreData}
-                onEndReachedThreshold={0.5}
-                ListFooterComponent={isFetchingMore ? <ActivityIndicator size="small" color={Colors.primary.tabIconSelected} /> : null}
             />
         </SafeAreaView>
     );
-};
+}
 
 export default Search;
 
@@ -207,6 +155,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 20,
         marginVertical: 20,
+
     },
     searchInput: {
         paddingHorizontal: 20,
@@ -214,11 +163,6 @@ const styles = StyleSheet.create({
         borderColor: Colors.light.border,
         borderWidth: 1,
         borderRadius: 8,
-        marginBottom: 10,
-    },
-    picker: {
-        height: 50,
-        marginVertical: 10,
     },
     itemContainer: {
         flexDirection: 'row',
@@ -234,5 +178,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginLeft: 10,
         color: 'grey',
+    },
+    image: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
     },
 });
