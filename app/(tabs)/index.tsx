@@ -49,7 +49,7 @@ const Home = () => {
           </Link>
         </View>
         <View style={styles.row}>
-          <Link href='/org-code' asChild>
+          <Link href='/search' asChild>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>공인중개사</Text>
             </TouchableOpacity>
