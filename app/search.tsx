@@ -8,10 +8,8 @@ import RegionModal from './region-modal';
 
 /* search 참고 : https://www.youtube.com/watch?v=Q4S9M9rJAxk */
 
-const API_ENDPOINT = 'http://api.data.go.kr/openapi/tn_pubr_public_med_office_api';
-const SERVICE_KEY = '37FLUq/RkLHRLoNJsFNlVuoFnd4IeO1BMZiY8MM+piMYRszFf0Yui/NvCjB8Bw7nD2xHz0VMiUBuqdP02X2S2w=='
-
-
+const API_ENDPOINT = process.env.EXPO_PUBLIC_API_URL;
+const SERVICE_KEY = process.env.EXPO_PUBLIC_SERVICE_KEY
 
 // API 응답의 데이터 항목 타입 정의
 interface ApiResponse {

@@ -1,9 +1,9 @@
 import { Colors } from '@/constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import React, { useState } from 'react';
 import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import institutions from '../assets/data/institutions.json'; // JSON 파일 불러오기
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 interface RegionModalProps {
     onRegionSelect?: (region: string) => void;
@@ -50,6 +50,7 @@ const RegionModal: React.FC<RegionModalProps> = ({ onRegionSelect, onCitySelect 
 
     const renderRegionItem = ({ item }: { item: string }) => (
         <TouchableOpacity
+            key={item}
             style={[
                 styles.itemButton,
                 selectedRegion === item && styles.selectedButton,
@@ -62,6 +63,7 @@ const RegionModal: React.FC<RegionModalProps> = ({ onRegionSelect, onCitySelect 
 
     const renderCityItem = ({ item }: { item: string }) => (
         <TouchableOpacity
+            key={item}
             style={[
                 styles.itemButton,
                 selectedCity === item && styles.selectedButton,
@@ -78,9 +80,9 @@ const RegionModal: React.FC<RegionModalProps> = ({ onRegionSelect, onCitySelect 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => setModalVisible(true)}
                     style={styles.modalButton}>
-                    <View  style={styles.buttonIconContainer}>
-                    <Text style={styles.modalButtonText} >지역</Text>
-                    <MaterialIcons name="arrow-forward-ios" size={18} color="black" />
+                    <View style={styles.buttonIconContainer}>
+                        <Text style={styles.modalButtonText} >지역</Text>
+                        <MaterialIcons name="arrow-forward-ios" size={18} color="black" />
                     </View>
                 </TouchableOpacity>
 
@@ -195,12 +197,12 @@ const styles = StyleSheet.create({
 
     modalButton: {
         padding: 5,
-        borderColor:Colors.light.border,
+        borderColor: Colors.light.border,
         borderWidth: 1,
         borderRadius: 10,
-        justifyContent:'center',
+        justifyContent: 'center',
         alignItems: 'center'
-        
+
     },
     modalButtonText: {
         fontSize: 14,
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignSelf: 'center',
         lineHeight: 18,
-        marginHorizontal:10
+        marginHorizontal: 10
 
     },
 
