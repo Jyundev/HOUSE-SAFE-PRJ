@@ -10,7 +10,6 @@ export default function Layout() {
                 {/* 개별 스크린들 */}
                 <Stack.Screen name="login" options={{ headerShown: false }} />
                 <Stack.Screen name="search" options={{ headerShown: false }} />
-                <Stack.Screen name="org-code" options={{ headerShown: false }} />
             </Stack>
         </GestureHandlerRootView>
 

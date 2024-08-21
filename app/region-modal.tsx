@@ -1,10 +1,16 @@
 import { Colors } from '@/constants/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useState } from 'react';
-import { Button, FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import institutions from '../assets/data/institutions.json'; // JSON 파일 불러오기
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-const RegionModal = () => {
+interface RegionModalProps {
+    onRegionSelect?: (region: string) => void;
+    onCitySelect?: (city: string) => void;
+}
+
+const RegionModal: React.FC<RegionModalProps> = ({ onRegionSelect, onCitySelect }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [cityModalVisible, setCityModalVisible] = useState(false);
     const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
@@ -26,15 +32,20 @@ const RegionModal = () => {
 
     const handleRegionPress = (region: string) => {
         setSelectedRegion(region);
+        if (onRegionSelect) {
+            onRegionSelect(region);
+        }
         setCityModalVisible(true); // 도시 모달 열기
+
     };
 
     const handleCityPress = (city: string) => {
         setSelectedCity(city);
         setCityModalVisible(false); // 도시 모달 닫기
         setModalVisible(false);    // 지역 모달도 닫기
-        console.log('Selected City:', city);
-        // 추가적인 처리 로직 추가 가능
+        if (onCitySelect) {
+            onCitySelect(city);
+        }
     };
 
     const renderRegionItem = ({ item }: { item: string }) => (
@@ -65,11 +76,14 @@ const RegionModal = () => {
         <View style={styles.container}>
             {/* Button to open the region modal */}
             <View style={styles.buttonContainer}>
-                <Button
-                    title="지역"
-                    color={Colors.light.background}
-                    onPress={() => setModalVisible(true)}
-                />
+                <TouchableOpacity onPress={() => setModalVisible(true)}
+                    style={styles.modalButton}>
+                    <View  style={styles.buttonIconContainer}>
+                    <Text style={styles.modalButtonText} >지역</Text>
+                    <MaterialIcons name="arrow-forward-ios" size={18} color="black" />
+                    </View>
+                </TouchableOpacity>
+
             </View>
             {/* Region Modal */}
             <Modal
@@ -161,16 +175,45 @@ const RegionModal = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start'
+
     },
     buttonContainer: {
-        margin: 10,
-        backgroundColor: '#f0f0f0',
+        marginVertical: 20,
+        backgroundColor: Colors.light.background,
         borderRadius: 10,
         overflow: 'hidden',
     },
+
+    buttonIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+
+    },
+
+    modalButton: {
+        padding: 5,
+        borderColor:Colors.light.border,
+        borderWidth: 1,
+        borderRadius: 10,
+        justifyContent:'center',
+        alignItems: 'center'
+        
+    },
+    modalButtonText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        alignSelf: 'center',
+        lineHeight: 18,
+        marginHorizontal:10
+
+    },
+
+
+
     centeredView: {
         flex: 1,
         justifyContent: 'flex-end',
