@@ -1,45 +1,17 @@
-// https://www.youtube.com/watch?v=K6OJP0s5VDQ&list=PLKWMD009Q4qTp1bzs3zGI5BvLB8EsAGBn&index=8
-import { Tabs } from 'expo-router'
-import React from 'react'
-import { StyleSheet } from 'react-native'
-import TabBar from '../components/TabBar'
+import { Stack } from 'expo-router/stack';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const _layout = () => {
+export default function Layout() {
     return (
-        <Tabs
-            tabBar={props => <TabBar {...props} />}
-            screenOptions={({ route }) => ({
-                tabBarStyle: {
-                    display: ['index', 'report', 'tip', 'profile'].includes(route.name) ? 'flex' : 'none',
-                },
-            })}
-        >
-            <Tabs.Screen
-                name="index"
-                options={{
-                    title: "홈"
-                }} />
-            <Tabs.Screen
-                name="report"
-                options={{
-                    title: "리포트"
-                }} />
-            <Tabs.Screen
-                name="tip"
-                options={{
-                    title: "팁"
-                }} />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    title: "마이페이지"
-                }} />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <Stack>
+                {/* (tabs) 경로 그룹의 기본 화면 */}
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                {/* 개별 스크린들 */}
+                <Stack.Screen name="login" options={{ headerShown: false }} />
+                <Stack.Screen name="search" options={{ headerShown: false }} />
+            </Stack>
+        </GestureHandlerRootView>
 
-                
-        </Tabs>
-    )
+    );
 }
-
-export default _layout
-
-const styles = StyleSheet.create({})
