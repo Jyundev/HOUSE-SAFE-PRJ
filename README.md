@@ -65,11 +65,14 @@
 
 ## 개발 환경
 
-| 구분            | 기술 스택                          |
-| --------------- | ---------------------------------- |
-| **백엔드**      | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white) |
-| **프론트엔드**  | ![React Native](https://img.shields.io/badge/React%20Native-61DAFB?style=flat&logo=react&logoColor=white) ![Expo](https://img.shields.io/badge/Expo-000020?style=flat&logo=expo&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white) |
-| **데이터베이스**| ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF?style=flat&logo=amazonrds&logoColor=white) |
+| 구분            | 기술 스택                                                                                                                 |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **백엔드**      | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat&logo=prisma&logoColor=white) |
+| **프론트엔드**  | ![React Native](https://img.shields.io/badge/React%20Native-61DAFB?style=flat&logo=react&logoColor=white) ![Expo](https://img.shields.io/badge/Expo-000020?style=flat&logo=expo&logoColor=white) |
+| **데이터베이스**| ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF?style=flat&logo=amazon%20rds&logoColor=white) ![Elasticsearch](https://img.shields.io/badge/Elasticsearch-005571?style=flat&logo=elasticsearch&logoColor=white) |
+| **도구**        | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) |
+| **언어**        | ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white) |
+
 
 </br></br>
 
@@ -86,6 +89,7 @@
 </br></br>
 
 ## 와이어프레임
+안전전세 앱의 와이어프레임을 Figma를 이용해 주요 페이지 중심으로 작성했습니다.
 
 ### 홈 화면, 로그인 화면
 <div style="display: flex; justify-content: center;">
@@ -95,14 +99,29 @@
 ### 스텝 화면
 
 <div style="display: flex; justify-content: center;">
-    <img src="assets\images\step1.png" alt="Alt text" style="width: 70%; height: 100%; margin-top: 10px;">
+    <img src="assets\images\step1.png" alt="Alt text" style="width: 75%; height: 100%; margin-top: 10px;">
 </div>
 <div style="display: flex; justify-content: center;">
-    <img src="assets\images\step2.png" alt="Alt text" style="width: 70%; height: 100%; ">
+    <img src="assets\images\step2.png" alt="Alt text" style="width: 75%; height: 100%; ">
     
 </div>
 
 ### 마이페이지
 <div style="display: flex; justify-content: center;">
-    <img src="assets\images\mypage.png" alt="Alt text" style="width: 70%; height: 100%; margin: 10px;">
+    <img src="assets\images\mypage.png" alt="Alt text" style="width: 75%; height: 100%; margin: 10px;">
 </div>
+
+
+## ERD 
+[DBdiagram](https://dbdiagram.io/d/HOUSE-66cfc95ccf8e2d1d1c2cd3c4)을 이용해 ERD를 작성했습니다. 테이블 구성은 다음과 같습니다.
+
+- BadLandlord: 상습 채무 불이행자 정보
+- RealEstateAgent: 부동산 중개사무소 정보
+- ApartSalesPrice: 아파트 실거래 매매가 정보
+- Reports: 전세 위험도 리포트
+- Users: 사용자 정보
+
+<div style="display: flex; justify-content: center;">
+    <img src="assets\images\erd.png" alt="Alt text" style="width: 80%; height: 80%; margin: 10px;">
+</div>
+
