@@ -1,62 +1,33 @@
 import { router } from "expo-router";
 import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import Postcode from '@actbase/react-daum-postcode';
-import { useState } from "react";
 
 const { width:SCREEN_WIDTH } = Dimensions.get('window');
 
-type OnCompleteParams = /*unresolved*/ any
-
-export default function first() {
-
-    const [searchPage, setSearchPage] = useState(false);
-    const [addressData, setAddressData] = useState('도로명, 건물명, 지번을 입력해주세요.')
+export default function second() {
 
     const before = () => {
         router.back();
     };
     
     const next = () => {
-        router.push('/forecast/second')
-    }
-
-    const goSearchAddress = () => {
-        setSearchPage(true);
-    }
-
-    const getAddressData = (data: OnCompleteParams) => {
-        setAddressData(data.address);
-        setSearchPage(false);
-    }
-
-    const handleError = () => {
-        alert('에러 발생');
+        router.push('/forecast/third')
     }
 
     return(
-        searchPage ? 
-            <Postcode 
-                onSelected={data => getAddressData(data)}
-                jsOptions={{animation: true}}
-                onError={handleError}
-            /> 
-        : 
         <>
             <View style={styles.stepBar}>
-                <View style={styles.currentStep}></View>
                 <View style={styles.notCurrentStep}></View>
+                <View style={styles.currentStep}></View>
                 <View style={styles.notCurrentStep}></View>
                 <View style={styles.notCurrentStep}></View>
             </View>
             <View style={styles.container}>
-                <Text style={styles.step}>1단계</Text>
-                <Text style={styles.sentnece}>주소를 입력해주세요.</Text>
-                <TouchableOpacity 
-                    style={styles.input}
-                    onPress={goSearchAddress}
-                >
-                    <Text>{addressData}</Text>
-                </TouchableOpacity>
+                <Text style={styles.step}>2단계</Text>
+                <Text style={styles.sentnece}>전세 보증금을 입력해주세요.</Text>
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="전세 보증금 입력"
+                />
             </View>
             <View style={styles.Btn}>
                 <TouchableOpacity 
@@ -119,9 +90,7 @@ const styles = StyleSheet.create({
         width: SCREEN_WIDTH/1.2,
         height: 40,
         borderRadius: 300,
-        textAlign: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
+        textAlign: 'center'
     },
     Btn: {
         flex: 1,
@@ -136,7 +105,7 @@ const styles = StyleSheet.create({
         opacity: 0.2,
         borderRadius: 300,
         width: 80,
-        height: 40,
+        height: 40
     },
     btnText: {
         color: 'white'
